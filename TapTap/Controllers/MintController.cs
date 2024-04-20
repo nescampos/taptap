@@ -15,7 +15,36 @@ namespace TapTap.Controllers
         }
         public IActionResult Index()
         {
-            return View();
+            IndexMintViewModel model = new IndexMintViewModel();
+            string macaroon = System.IO.File.ReadAllText(_configuration["MacaroonPath"]).ToHex();
+
+            string url = $"https://{_configuration["RESTHost"]}/v1/taproot-assets/assets";
+
+            try
+            {
+                HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
+                request.Method = "GET";
+                request.ContentType = "application/json";
+                request.Headers.Add("Grpc-Metadata-macaroon", macaroon);
+                request.Headers.Add("rejectUnauthorized", "false");
+                request.Headers.Add("json", "true");
+
+            
+                HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+                using (StreamReader streamReader = new StreamReader(response.GetResponseStream()))
+                {
+                    string result = streamReader.ReadToEnd();
+                    ListAssetResponse jsonResponse = JsonConvert.DeserializeObject<ListAssetResponse>(result);
+                    model.assets = jsonResponse.assets;
+                    return View(model);
+                }
+            }
+            catch (WebException ex)
+            {
+                model.assets = null;
+                Console.WriteLine(ex.Message);
+            }
+            return View(model);
         }
 
         public IActionResult MintAsset()
