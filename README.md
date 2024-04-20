@@ -2,7 +2,9 @@
 
 TapTap is a stablecoin studio built with [Taproot Assets](https://docs.lightning.engineering/the-lightning-network/taproot-assets).
 
-**Pitch**: https://www.youtube.com/watch?v=WDj66fDuYUg
+**Pitch video**: https://www.youtube.com/watch?v=WDj66fDuYUg
+
+**Pitch deck**: [See](./TapTap.pdf)
 
 ## Technologies
 
