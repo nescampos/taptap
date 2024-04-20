@@ -1,0 +1,71 @@
+﻿@model TapTap.Models.MintAssetViewModel
+@{
+    ViewData["Title"] = "Mint new asset/stablecoin";
+}
+
+<div class="row">
+    <div class="col-12">
+        <h3>Mint new asset/stablecoin</h3>
+    </div>
+</div>
+<br />
+<div class="row">
+    <div class="col-12">
+        @Html.ActionLink("Back","Index","Mint",null,new {@class="btn btn-info"})
+    </div>
+</div>
+<br />
+
+
+@using(Html.BeginForm())
+{
+    <div class="row">
+        <div class="col-4">
+            Version
+        </div>
+        <div class="col-6">
+            @Html.DropDownListFor(x => x.Form.Version, Model.Versions,"Choose a version",new {@class="form-control"}) <br />
+            @Html.ValidationMessageFor(x => x.Form.Version)
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-4">
+            Type
+        </div>
+        <div class="col-6">
+            @Html.DropDownListFor(x => x.Form.Type, Model.Types,"Choose a type",new {@class="form-control"}) <br />
+            @Html.ValidationMessageFor(x => x.Form.Type)
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-4">
+            Name
+        </div>
+        <div class="col-6">
+            @Html.TextBoxFor(x => x.Form.Name,new {@class="form-control"}) <br />
+            @Html.ValidationMessageFor(x => x.Form.Name)
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-4">
+            Amount
+        </div>
+        <div class="col-6">
+            @Html.TextBoxFor(x => x.Form.Amount,new {@class="form-control", type="number"}) <br />
+            @Html.ValidationMessageFor(x => x.Form.Amount)
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-4">
+            <br />
+        </div>
+        <div class="col-6">
+            <input type="submit" value="Create asset" class="btn btn-primary" />
+        </div>
+    </div>
+}
+<br />

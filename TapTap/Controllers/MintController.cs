@@ -66,7 +66,11 @@ namespace TapTap.Controllers
 
             MintAssetRequest requestBody = new MintAssetRequest
             {
-                asset = new MintAsset(),
+                asset = new MintAsset()
+                {
+                    name = Form.Name, amount = Form.Amount.Value.ToString(), asset_type = Form.Type,
+                    asset_version = Form.Version, new_grouped_asset = true
+                },
                 short_response = false
             };
 
