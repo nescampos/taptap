@@ -27,9 +27,10 @@ namespace TapTap.Controllers
         [HttpPost]
         public IActionResult MintAsset(MintAssetFormModel Form)
         {
-            if(!ModelState.IsValid)
+            MintAssetViewModel model = new MintAssetViewModel();
+            if (!ModelState.IsValid)
             {
-                MintAssetViewModel model = new MintAssetViewModel();
+                
                 model.Form = Form;
                 return View(model);
             }
@@ -62,13 +63,21 @@ namespace TapTap.Controllers
                 using (StreamReader streamReader = new StreamReader(response.GetResponseStream()))
                 {
                     string result = streamReader.ReadToEnd();
-                    Console.WriteLine(result);
+                    MintAssetResponse jsonResponse = JsonConvert.DeserializeObject<MintAssetResponse>(result);
+                    ViewBag.MintedAsset = jsonResponse;
+                    return RedirectToAction("Minted");
                 }
             }
             catch (WebException ex)
             {
-                Console.WriteLine(ex.Message);
+                model.Form = Form;
+                model.Error = ex.Message;
+                return View(model);
             }
+        }
+
+        public IActionResult Minted()
+        {
             return View();
         }
     }
