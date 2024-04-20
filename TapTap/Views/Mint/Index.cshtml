@@ -1,0 +1,56 @@
+﻿@model TapTap.Models.IndexMintViewModel
+@{
+    ViewData["Title"] = "List of assets";
+}
+
+<div class="row">
+    <div class="col-12">
+        <h3>List of created Taproot assets</h3>
+    </div>
+</div>
+<br />
+<div class="row">
+    <div class="col-12">
+        @Html.ActionLink("Mint new stablecoin","MintAsset","Mint",null,new {@class="btn btn-info"})
+    </div>
+</div>
+<br />
+<div class="row">
+    <div class="col-12">
+        @if(Model.assets != null && Model.assets.Any())
+        {
+            <table class="table table-response">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Type</th>
+                        <th>Id</th>
+                        <th>Amount</th>
+                        <th>Version</th>
+                        <th>Is spent?</th>
+                        <th>Is burn?</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach(var asset in Model.assets)
+                    {
+                        <tr>
+                            <td>@asset.asset_genesis.name</td>
+                            <td>@asset.asset_genesis.asset_type</td>
+                            <td>@asset.asset_genesis.asset_id</td>
+                            <td>@asset.amount</td>
+                            <td>@asset.version</td>
+                            <td>@asset.is_spent</td>
+                            <td>@asset.is_burn</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+        else
+        {
+            <p class="alert alert-info">There is no created assets in your account.</p>
+        }
+    </div>
+</div>
+<br />
