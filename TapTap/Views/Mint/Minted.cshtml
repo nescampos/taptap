@@ -1,0 +1,106 @@
+﻿@{
+    ViewData["Title"] = "The asset/stablecoin is being minted";
+}
+
+<div class="row">
+    <div class="col-12">
+        <h3>@ViewData["Title"]</h3>
+    </div>
+</div>
+<br />
+
+@if(ViewBag.MintedAsset != null)
+{
+    var mintedValue = (MintAssetResponse)ViewBag.MintedAsset;
+    if(mintedValue.pending_batch != null)
+    {
+        <div class="row">
+            <div class="col-4">
+                State
+            </div>
+            <div class="col-6">
+                <b>@mintedValue.pending_batch.state</b>
+            </div>
+        </div>
+        <br />
+        <div class="row">
+            <div class="col-4">
+                Created At
+            </div>
+            <div class="col-6">
+                <b>@mintedValue.pending_batch.created_at</b>
+            </div>
+        </div>
+        <br />
+        <div class="row">
+            <div class="col-4">
+                Height hint
+            </div>
+            <div class="col-6">
+                <b>@mintedValue.pending_batch.height_hint</b>
+            </div>
+        </div>
+        <br />
+        <div class="row">
+            <div class="col-4">
+                Batch Key
+            </div>
+            <div class="col-6">
+                <b>@mintedValue.pending_batch.batch_key</b>
+            </div>
+        </div>
+        <br />
+        <div class="row">
+            <div class="col-4">
+                Batch Transaction
+            </div>
+            <div class="col-6">
+                <b>@mintedValue.pending_batch.batch_txid</b>
+            </div>
+        </div>
+        <br />
+        <div class="row">
+            <div class="col-4">
+                Batch PSBT
+            </div>
+            <div class="col-6">
+                <b>@mintedValue.pending_batch.batch_psbt</b>
+            </div>
+        </div>
+        <br />
+        <div class="row">
+            <div class="col-4">
+                Pending assets
+            </div>
+            <div class="col-6">
+                @if(mintedValue.pending_batch.assets != null)
+                {
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Type</th>
+                                <th>Amount</th>
+                                <th>Version</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach(var asset in mintedValue.pending_batch.assets)
+                            {
+                                <tr>
+                                    <td>@asset.name</td>
+                                    <td>@asset.asset_type</td>
+                                    <td>@asset.amount</td>
+                                    <td>@asset.asset_version</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                    
+                }
+                
+            </div>
+        </div>
+        <br />
+    }
+}
